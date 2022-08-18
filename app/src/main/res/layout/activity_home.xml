@@ -25,21 +25,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.3" />
 
-    <Button
-        android:id="@+id/addNewBtn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:background="@drawable/btn_bg"
-        android:drawableLeft="@drawable/ic_add"
-        android:text="Add new "
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/listBtn"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="@+id/listBtn"
-        app:layout_constraintTop_toBottomOf="@+id/listBtn"
-        app:layout_constraintVertical_bias="0.100000024" />
-
     <TextView
         android:id="@+id/textView2"
         android:layout_width="99dp"
