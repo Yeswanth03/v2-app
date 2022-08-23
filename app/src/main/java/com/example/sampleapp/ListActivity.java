@@ -22,6 +22,7 @@ public class ListActivity extends AppCompatActivity {
     ArrayList<ContactModel> arrcontacts = new ArrayList<>();
     RecyclerContactAdapter adapter;
     FloatingActionButton btnOpenDialog;
+    Button newscan;
     RecyclerView recyclerView;
 
     @Override
@@ -32,6 +33,7 @@ public class ListActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerContact);
         btnOpenDialog = findViewById(R.id.btnOpenDialog);
 
+
         btnOpenDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -39,40 +41,33 @@ public class ListActivity extends AppCompatActivity {
                 Dialog dialog = new Dialog(ListActivity.this);
                 dialog.setContentView(R.layout.add_update_lay);
                 EditText edtname = dialog.findViewById(R.id.edtname);
-                EditText edtnumber = dialog.findViewById(R.id.edtnumber);
                 Button btnadd = dialog.findViewById(R.id.btnadd);
-                Button btnaddscan = dialog.findViewById(R.id.btnaddscan);
+//                Button btnaddscan = dialog.findViewById(R.id.btnaddscan);
 
-                btnaddscan.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View view)
-                    {
-                        startActivity(new Intent(ListActivity.this,ScannerView.class));
-                    }
-                });
+
+
+//                btnaddscan.setOnClickListener(new View.OnClickListener()
+//                {
+//                    @Override
+//                    public void onClick(View view)
+//                    {
+//                        startActivity(new Intent(ListActivity.this,ScannerView.class));
+//                    }
+//                });
 
                 btnadd.setOnClickListener(new View.OnClickListener()
                 {
                     @Override
                     public void onClick(View view)
                     {
-                        String name = "",number = "";
+                        String name = "";
 
-                        if(!edtname.getText().toString().equals("") && !edtnumber.getText().toString().equals("")){
+                        if(!edtname.getText().toString().equals("")){
                             name = edtname.getText().toString();
-                            number = edtnumber.getText().toString();
-                            arrcontacts.add(new ContactModel(R.drawable.ic_launcher_foreground,name,number));
+                            arrcontacts.add(new ContactModel(R.drawable.ic_launcher_foreground,name));
                         } else {
-                            if (edtname.getText().toString().equals("") && edtnumber.getText().toString().equals("")){
-                                Toast.makeText(ListActivity.this,"please enter account and key",Toast.LENGTH_SHORT).show();
-                            }
-                            if(edtname.getText().toString().equals("")){
-                                Toast.makeText(ListActivity.this,"please enter Account name!",Toast.LENGTH_SHORT).show();
-                            }
-                            if (edtnumber.getText().toString().equals("")){
-                                Toast.makeText(ListActivity.this,"please enter key!",Toast.LENGTH_SHORT).show();
-                            }
+                            Toast.makeText(ListActivity.this,"please enter account",Toast.LENGTH_SHORT).show();
+
                         }
 
 
@@ -91,20 +86,16 @@ public class ListActivity extends AppCompatActivity {
 
 
 
+//        setContentView(R.layout.serviceprovider);
+//        newscan = findViewById(R.id.newscan);
+//        newscan.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(ListActivity.this,ScannerView.class));
+//            }
+//        });
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-
-
-       /* arrcontacts.add(new ContactModel(R.drawable.ic_launcher_foreground, "A", "9012345678"));
-        arrcontacts.add(new ContactModel(R.drawable.ic_launcher_foreground, "b", "9012345678"));
-        arrcontacts.add(new ContactModel(R.drawable.ic_launcher_foreground, "c", "9012345678"));
-        arrcontacts.add(new ContactModel(R.drawable.ic_launcher_foreground, "d", "9012345678"));
-        arrcontacts.add(new ContactModel(R.drawable.ic_launcher_foreground, "e", "9012345678"));
-        arrcontacts.add(new ContactModel(R.drawable.ic_launcher_foreground, "f", "9012345678"));
-        arrcontacts.add(new ContactModel(R.drawable.ic_launcher_foreground, "g", "9012345678"));
-        arrcontacts.add(new ContactModel(R.drawable.ic_launcher_foreground, "h", "9012345678"));
-        arrcontacts.add(new ContactModel(R.drawable.ic_launcher_foreground, "i", "9012345678"));
-        arrcontacts.add(new ContactModel(R.drawable.ic_launcher_foreground, "j", "9012345678")); */
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 

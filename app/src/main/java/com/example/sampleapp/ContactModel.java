@@ -2,16 +2,14 @@ package com.example.sampleapp;
 
 public class ContactModel {
     int img;
-    String name,number;
+    String name;
 
-    public ContactModel(int img, String name, String number){
+    public ContactModel(int img, String name){
         this.name = name;
-        this.number = number;
         this.img = img;
 
     }
-    public ContactModel(String name,String number){
+    public ContactModel(String name){
         this.name = name;
-        this.number= number;
     }
 }

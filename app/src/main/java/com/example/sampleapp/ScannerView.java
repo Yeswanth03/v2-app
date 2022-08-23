@@ -18,15 +18,15 @@ import java.nio.channels.ScatteringByteChannel;
 
 public class ScannerView extends AppCompatActivity
 {
-    Button btnscan;
+    Button newscan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scanner_view);
-        btnscan = findViewById(R.id.scanBtn);
-        btnscan.setOnClickListener(v->
+        setContentView(R.layout.serviceprovider);
+        newscan = findViewById(R.id.newscan);
+        newscan.setOnClickListener(v->
         {
             scanCode();
         });
@@ -46,16 +46,16 @@ public class ScannerView extends AppCompatActivity
     }
     ActivityResultLauncher<ScanOptions> barLauncher = registerForActivityResult(new ScanContract(),result ->
     {
-        TextView edtnumber = findViewById(R.id.edtnumber);
         if(result.getContents() !=null)
         {
             AlertDialog.Builder builder = new AlertDialog.Builder((ScannerView.this));
             builder.setTitle("Result");
             builder.setMessage(result.getContents());
+            String hashK = result.getContents();
+            System.out.println(hashK);
             builder.setPositiveButton("Copy", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    edtnumber.setText(result.getContents());
                     dialogInterface.dismiss();
 
                 }

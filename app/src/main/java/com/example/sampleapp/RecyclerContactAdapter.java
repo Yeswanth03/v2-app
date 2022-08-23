@@ -3,6 +3,7 @@ package com.example.sampleapp;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,14 +19,25 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.apache.commons.codec.binary.Base32;
+import org.apache.commons.codec.binary.Hex;
+
 import java.util.ArrayList;
 import java.util.Random;
+
+import de.taimos.totp.TOTP;
 
 public class RecyclerContactAdapter extends RecyclerView.Adapter<RecyclerContactAdapter.ViewHolder > {
 
     Context context;
     ArrayList<ContactModel> arrContacts;
 
+    public static String getTOTPCode(String secretKey) {
+        Base32 base32 = new Base32();
+        byte[] bytes = base32.decode(secretKey);
+        String hexKey = Hex.encodeHexString(bytes);
+        return TOTP.getOTP(hexKey);
+    }
 
     RecyclerContactAdapter(Context context, ArrayList<ContactModel> arrContacts){
         this.context = context;
@@ -44,11 +56,9 @@ public class RecyclerContactAdapter extends RecyclerView.Adapter<RecyclerContact
     public void onBindViewHolder(@NonNull ViewHolder holder,int position) {
 
 
-
         ContactModel model = (ContactModel) arrContacts.get(position);
         holder.imagecontact.setImageResource(model.img);
         holder.txtname.setText(arrContacts.get(position).name);
-        holder.txtnum.setText(arrContacts.get(position).number);
 
         holder.realmodify.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,13 +68,11 @@ public class RecyclerContactAdapter extends RecyclerView.Adapter<RecyclerContact
 
 
                 EditText edtname = dialog.findViewById(R.id.edtname);
-                EditText edtnumber = dialog.findViewById(R.id.edtnumber);
                 Button btnadd = dialog.findViewById(R.id.btnadd);
 
                 TextView txtTitle = dialog.findViewById(R.id.txtTitle);
 
                 edtname.setText((arrContacts.get(position)).name);
-                edtnumber.setText((arrContacts.get(position)).number);
 
 
                 txtTitle.setText("Modify");
@@ -79,12 +87,7 @@ public class RecyclerContactAdapter extends RecyclerView.Adapter<RecyclerContact
                         } else {
                             Toast.makeText(context,"please enter contact name!",Toast.LENGTH_SHORT).show();
                         }
-                        if (!edtnumber.getText().toString().equals("")){
-                            number = edtnumber.getText().toString();
-                        } else {
-                            Toast.makeText(context,"please enter contact number!",Toast.LENGTH_SHORT).show();
-                        }
-                        arrContacts.set(position, new ContactModel(R.drawable.ic_launcher_foreground,name,number));
+                        arrContacts.set(position, new ContactModel(R.drawable.ic_launcher_foreground,name));
                         notifyItemChanged(position);
 
                         dialog.dismiss();
@@ -94,17 +97,262 @@ public class RecyclerContactAdapter extends RecyclerView.Adapter<RecyclerContact
             }
         });
 
+
         holder.llRow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Dialog dialog = new Dialog(context);
                 dialog.setContentView(R.layout.displaytotp);
 
+                ImageView img_1;
+                ImageView img_2;
+                ImageView img_3;
+                ImageView img_4;
+                ImageView img_5;
+                ImageView img_6;
 
-                TextView txtviewtotp;
-                txtviewtotp=dialog.findViewById(R.id.txtviewtotp);
-                Random random = new Random();
-                txtviewtotp.setText(""+random.nextInt(100000-10000)+1);
+                img_1 = dialog.findViewById(R.id.img_1);
+                img_2 = dialog.findViewById(R.id.img_2);
+                img_3 = dialog.findViewById(R.id.img_3);
+                img_4 = dialog.findViewById(R.id.img_4);
+                img_5 = dialog.findViewById(R.id.img_5);
+                img_6 = dialog.findViewById(R.id.img_6);
+//                TextView txtviewtotp;
+//                txtviewtotp=dialog.findViewById(R.id.txtviewtotp);
+//                Random random = new Random();
+//                int n = random.nextInt(1000000-100000)+1;
+
+                String secretKey="KA54QGQSZZVBUFIH3XACOAW2VNFKXXVV";
+
+                String s = getTOTPCode(secretKey);
+
+
+                int n = Integer.parseInt(s);
+                int j=0;
+                int[] arr = new int[6];
+                while(n!=0)
+                {
+                    arr[6-j-1] = n%10;
+                    n=n/10;
+                    j++;
+                }
+                for (int i =0;i<6;i++)
+                {
+                    switch (arr[i]){
+                        case 0:
+                            switch (i){
+                                case 0:
+                                    img_1.setImageResource(R.drawable.ic_0);
+                                    continue;
+                                case 1:
+                                    img_2.setImageResource(R.drawable.ic_0);
+                                    continue;
+                                case 2:
+                                    img_3.setImageResource(R.drawable.ic_0);
+                                    continue;
+                                case 3:
+                                    img_4.setImageResource(R.drawable.ic_0);
+                                    continue;
+                                case 4:
+                                    img_5.setImageResource(R.drawable.ic_0);
+                                    continue;
+                                case 5:
+                                    img_6.setImageResource(R.drawable.ic_0);
+                                    continue;
+                            }
+                        case 1:
+                            switch (i) {
+                                case 0:
+                                    img_1.setImageResource(R.drawable.ic_1);
+                                    continue;
+                                case 1:
+                                    img_2.setImageResource(R.drawable.ic_1);
+                                    continue;
+                                case 2:
+                                    img_3.setImageResource(R.drawable.ic_1);
+                                    continue;
+                                case 3:
+                                    img_4.setImageResource(R.drawable.ic_1);
+                                    continue;
+                                case 4:
+                                    img_5.setImageResource(R.drawable.ic_1);
+                                    continue;
+                                case 5:
+                                    img_6.setImageResource(R.drawable.ic_1);
+                                    continue;
+                            }
+                        case 2:
+                            switch (i) {
+                                case 0:
+                                    img_1.setImageResource(R.drawable.ic_2);
+                                    continue;
+                                case 1:
+                                    img_2.setImageResource(R.drawable.ic_2);
+                                    continue;
+                                case 2:
+                                    img_3.setImageResource(R.drawable.ic_2);
+                                    continue;
+                                case 3:
+                                    img_4.setImageResource(R.drawable.ic_2);
+                                    continue;
+                                case 4:
+                                    img_5.setImageResource(R.drawable.ic_2);
+                                    continue;
+                                case 5:
+                                    img_6.setImageResource(R.drawable.ic_2);
+                                    continue;
+                            }
+                        case 3:
+                            switch (i) {
+                                case 0:
+                                    img_1.setImageResource(R.drawable.ic_3);
+                                    continue;
+                                case 1:
+                                    img_2.setImageResource(R.drawable.ic_3);
+                                    continue;
+                                case 2:
+                                    img_3.setImageResource(R.drawable.ic_3);
+                                    continue;
+                                case 3:
+                                    img_4.setImageResource(R.drawable.ic_3);
+                                    continue;
+                                case 4:
+                                    img_5.setImageResource(R.drawable.ic_3);
+                                    continue;
+                                case 5:
+                                    img_6.setImageResource(R.drawable.ic_3);
+                                    continue;
+                            }
+                        case 4:
+                            switch (i) {
+                                case 0:
+                                    img_1.setImageResource(R.drawable.ic_4);
+                                    continue;
+                                case 1:
+                                    img_2.setImageResource(R.drawable.ic_4);
+                                    continue;
+                                case 2:
+                                    img_3.setImageResource(R.drawable.ic_4);
+                                    continue;
+                                case 3:
+                                    img_4.setImageResource(R.drawable.ic_4);
+                                    continue;
+                                case 4:
+                                    img_5.setImageResource(R.drawable.ic_4);
+                                    continue;
+                                case 5:
+                                    img_6.setImageResource(R.drawable.ic_4);
+                                    continue;
+                            }
+                        case 5:
+                            switch (i) {
+                                case 0:
+                                    img_1.setImageResource(R.drawable.ic_5);
+                                    continue;
+                                case 1:
+                                    img_2.setImageResource(R.drawable.ic_5);
+                                    continue;
+                                case 2:
+                                    img_3.setImageResource(R.drawable.ic_5);
+                                    continue;
+                                case 3:
+                                    img_4.setImageResource(R.drawable.ic_5);
+                                    continue;
+                                case 4:
+                                    img_5.setImageResource(R.drawable.ic_5);
+                                    continue;
+                                case 5:
+                                    img_6.setImageResource(R.drawable.ic_5);
+                                    continue;
+                            }
+                        case 6:
+                            switch (i) {
+                                case 0:
+                                    img_1.setImageResource(R.drawable.ic_6);
+                                    continue;
+                                case 1:
+                                    img_2.setImageResource(R.drawable.ic_6);
+                                    continue;
+                                case 2:
+                                    img_3.setImageResource(R.drawable.ic_6);
+                                    continue;
+                                case 3:
+                                    img_4.setImageResource(R.drawable.ic_6);
+                                    continue;
+                                case 4:
+                                    img_5.setImageResource(R.drawable.ic_6);
+                                    continue;
+                                case 5:
+                                    img_6.setImageResource(R.drawable.ic_6);
+                                    continue;
+                            }
+                        case 7:
+                            switch (i) {
+                                case 0:
+                                    img_1.setImageResource(R.drawable.ic_7);
+                                    continue;
+                                case 1:
+                                    img_2.setImageResource(R.drawable.ic_7);
+                                    continue;
+                                case 2:
+                                    img_3.setImageResource(R.drawable.ic_7);
+                                    continue;
+                                case 3:
+                                    img_4.setImageResource(R.drawable.ic_7);
+                                    continue;
+                                case 4:
+                                    img_5.setImageResource(R.drawable.ic_7);
+                                    continue;
+                                case 5:
+                                    img_6.setImageResource(R.drawable.ic_7);
+                                    continue;
+                            }
+                        case 8:
+                            switch (i) {
+                                case 0:
+                                    img_1.setImageResource(R.drawable.ic_8);
+                                    continue;
+                                case 1:
+                                    img_2.setImageResource(R.drawable.ic_8);
+                                    continue;
+                                case 2:
+                                    img_3.setImageResource(R.drawable.ic_8);
+                                    continue;
+                                case 3:
+                                    img_4.setImageResource(R.drawable.ic_8);
+                                    continue;
+                                case 4:
+                                    img_5.setImageResource(R.drawable.ic_8);
+                                    continue;
+                                case 5:
+                                    img_6.setImageResource(R.drawable.ic_8);
+                                    continue;
+                            }
+                        case 9:
+                            switch (i) {
+                                case 0:
+                                    img_1.setImageResource(R.drawable.ic_9);
+                                    continue;
+                                case 1:
+                                    img_2.setImageResource(R.drawable.ic_9);
+                                    continue;
+                                case 2:
+                                    img_3.setImageResource(R.drawable.ic_9);
+                                    continue;
+                                case 3:
+                                    img_4.setImageResource(R.drawable.ic_9);
+                                    continue;
+                                case 4:
+                                    img_5.setImageResource(R.drawable.ic_9);
+                                    continue;
+                                case 5:
+                                    img_6.setImageResource(R.drawable.ic_9);
+                                    continue;
+                            }
+                    }
+
+                }
+
 
                 TextView timer;
                 timer= dialog.findViewById(R.id.timer);
@@ -117,7 +365,6 @@ public class RecyclerContactAdapter extends RecyclerView.Adapter<RecyclerContact
 
                     @Override
                     public void onFinish() {
-                        txtviewtotp.setText(""+random.nextInt(1000000-100000)+1);
                         dialog.dismiss();
                     }
                 }.start();
@@ -125,6 +372,15 @@ public class RecyclerContactAdapter extends RecyclerView.Adapter<RecyclerContact
                 dialog.show();
             }
         });
+
+
+        holder.newscan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                context.startActivity(new Intent(context,ScannerView.class));
+            }
+        });
+
 
         holder.btndel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,26 +417,42 @@ public class RecyclerContactAdapter extends RecyclerView.Adapter<RecyclerContact
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView txtname, txtnum;
+        TextView txtname;
+//        TextView txtnum;
         ImageView imagecontact;
         LinearLayout llRow;
         Button btndel;
         Button realmodify;
+        Button newscan;
         TextView timer;
-        TextView txtviewtotp;
+//        TextView txtviewtotp;
+        ImageView img_1;
+        ImageView img_2;
+        ImageView img_3;
+        ImageView img_4;
+        ImageView img_5;
+        ImageView img_6;
+
 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             txtname = itemView.findViewById(R.id.txtname);
-            txtnum = itemView.findViewById(R.id.txtnum);
+//            txtnum = itemView.findViewById(R.id.txtnum);
             imagecontact = itemView.findViewById(R.id.imgcontact);
             llRow = itemView.findViewById(R.id.llrow);
             btndel = itemView.findViewById(R.id.btndel);
             realmodify = itemView.findViewById(R.id.realmodify);
+            newscan = itemView.findViewById(R.id.newscan);
             timer = itemView.findViewById(R.id.timer);
-            txtviewtotp = itemView.findViewById(R.id.txtviewtotp);
+//            txtviewtotp = itemView.findViewById(R.id.txtviewtotp);
+            img_1 = itemView.findViewById(R.id.img_1);
+            img_2 = itemView.findViewById(R.id.img_2);
+            img_3 = itemView.findViewById(R.id.img_3);
+            img_4 = itemView.findViewById(R.id.img_4);
+            img_5 = itemView.findViewById(R.id.img_5);
+            img_6 = itemView.findViewById(R.id.img_6);
         }
     }
 }
