@@ -14,6 +14,9 @@ import android.widget.Toast;
 
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
+
+import org.json.JSONException;
+
 import java.nio.channels.ScatteringByteChannel;
 
 public class ScannerView extends AppCompatActivity
@@ -53,6 +56,14 @@ public class ScannerView extends AppCompatActivity
             builder.setMessage(result.getContents());
             String hashK = result.getContents();
             System.out.println(hashK);
+            String webname= getIntent().getStringExtra("name");
+            System.out.println(webname);
+              DBHelper db  =new DBHelper(this);;
+            try {
+                db.updatehashkey(webname, hashK);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             builder.setPositiveButton("Copy", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {

@@ -24,6 +24,7 @@ public class ListActivity extends AppCompatActivity {
     FloatingActionButton btnOpenDialog;
     Button newscan;
     RecyclerView recyclerView;
+    String name=" ";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,11 +61,14 @@ public class ListActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view)
                     {
-                        String name = "";
+                       // String name = "";
 
                         if(!edtname.getText().toString().equals("")){
                             name = edtname.getText().toString();
                             arrcontacts.add(new ContactModel(R.drawable.ic_launcher_foreground,name));
+                            DBHelper db;
+
+
                         } else {
                             Toast.makeText(ListActivity.this,"please enter account",Toast.LENGTH_SHORT).show();
 
@@ -75,7 +79,9 @@ public class ListActivity extends AppCompatActivity {
                         adapter.notifyItemInserted(arrcontacts.size()-1);
 
                         recyclerView.scrollToPosition(arrcontacts.size()-1);
-
+                        Intent intent = new Intent(ListActivity.this,ScannerView.class);
+                        intent.putExtra("name",name);
+                        startActivity(intent);
                         dialog.dismiss();
                     }
 
@@ -101,5 +107,9 @@ public class ListActivity extends AppCompatActivity {
 
         adapter = new RecyclerContactAdapter(ListActivity.this,arrcontacts);
         recyclerView.setAdapter(adapter);
+
+
+
     }
+
 }
