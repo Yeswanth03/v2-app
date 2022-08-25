@@ -16,6 +16,15 @@
         android:theme="@style/Theme.SampleApp"
         tools:targetApi="31">
         <activity
+            android:name=".venderverify"
+            android:exported="false" />
+        <activity
+            android:name=".vendernumber"
+            android:exported="false" />
+        <activity
+            android:name=".Page1Activity"
+            android:exported="false" />
+        <activity
             android:name=".ScannerView"
             android:exported="true" />
         <activity
@@ -25,7 +34,7 @@
             android:name=".HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".Page1Activity"
+            android:name=".custorvender"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

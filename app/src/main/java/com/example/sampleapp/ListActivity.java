@@ -22,7 +22,7 @@ public class ListActivity extends AppCompatActivity {
     ArrayList<ContactModel> arrcontacts = new ArrayList<>();
     RecyclerContactAdapter adapter;
     FloatingActionButton btnOpenDialog;
-    Button newscan;
+//    Button newscan;
     RecyclerView recyclerView;
     String name=" ";
 
@@ -103,7 +103,7 @@ public class ListActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         adapter = new RecyclerContactAdapter(ListActivity.this,arrcontacts);
         recyclerView.setAdapter(adapter);

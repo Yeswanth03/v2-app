@@ -386,7 +386,7 @@ public class RecyclerContactAdapter extends RecyclerView.Adapter<RecyclerContact
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context)
-                        .setTitle("Delete Contact")
+                        .setTitle("Delete account")
                         .setMessage("Are you sure you want to delete this?")
                         .setIcon(R.drawable.ic_delete)
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {

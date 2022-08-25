@@ -21,15 +21,15 @@ import java.nio.channels.ScatteringByteChannel;
 
 public class ScannerView extends AppCompatActivity
 {
-    Button newscan;
+    Button scanbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.serviceprovider);
-        newscan = findViewById(R.id.newscan);
-        newscan.setOnClickListener(v->
+        setContentView(R.layout.activity_scanner_view);
+        scanbtn = findViewById(R.id.scanBtn);
+        scanbtn.setOnClickListener(v->
         {
             scanCode();
         });
@@ -64,9 +64,10 @@ public class ScannerView extends AppCompatActivity
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            builder.setPositiveButton("Copy", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
+                    startActivity(new Intent(ScannerView.this,ListActivity.class));
                     dialogInterface.dismiss();
 
                 }

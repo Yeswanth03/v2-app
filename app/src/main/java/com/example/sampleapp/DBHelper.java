@@ -2,6 +2,7 @@ package com.example.sampleapp;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SearchRecentSuggestionsProvider;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -11,6 +12,8 @@ import androidx.annotation.Nullable;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.sql.Struct;
 
 public class DBHelper extends SQLiteOpenHelper {
     public static final String DBNAME = "Login.db";
@@ -26,7 +29,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase MyDB)
     {
         MyDB.execSQL("create Table users(userid integer  primary key autoincrement,username TEXT unique, password TEXT,email TEXT,secretkey text)");
-        MyDB.execSQL("UPDATE users set secretkey= 'ddddddddd' ;");
+        MyDB.execSQL("UPDATE users set secretkey= '{"+"a"+":"+"a"+"}' ;");
 
     }
 
@@ -72,25 +75,57 @@ public class DBHelper extends SQLiteOpenHelper {
     public void updatehashkey(String name,String number) throws JSONException
     {
         SQLiteDatabase MyDB = this.getWritableDatabase();
-        /*String sql = "SELECT email  FROM users where username= 'sen'";
+       // MyDB.execSQL("UPDATE users set secretkey= '{"+"a"+":"+"a"+"}' ;");
+        //
+        String sql = "SELECT secretkey  FROM users where username= 'sen'";
         SQLiteStatement statement = MyDB.compileStatement(sql);
-        long result = statement.simpleQueryForLong();
-        */ //WITHOUT CURSOR USAGE
-String uname = "sen";
-        Cursor cursor=MyDB.rawQuery("SELECT email  FROM users where username= ?",new String[]{uname});
-        String res = cursor.getString(cursor.getColumnIndex("email"));//WITH CURSOR USAGE
-//        String hasahkey="" ;//we use select satement to get hashkey here to get
-        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n"+String.valueOf(res));
+        String res = statement.simpleQueryForString();
+        String old=res;
 
-        JSONObject json = new JSONObject(String.valueOf(res));
+//      String hasahkey="" ;//we use select satement to get hashkey here to get
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n"+res);
+
+        JSONObject json = new JSONObject(res);
 
 
         json.put(name, number);
 
-        String updatedsecrectkey =json.toString();
+        String updatedsecretkey =json.toString();
 
-        MyDB.execSQL("UPDATE users set secretkey="+updatedsecrectkey+";");
+        JSONObject usk = new JSONObject(updatedsecretkey);
+
+        System.out.println("****************************************************"+updatedsecretkey);
+        String concatted = jsonConcat(old, updatedsecretkey);
+        MyDB.execSQL("UPDATE users set secretkey= " + "'" +concatted+"'" + ";");
+
+
         //String l=MyDB.execSQL("SELECT secretkey from users where username=vatsan;");
+
     }
+
+    public String jsonConcat(String o, String i){
+        int lenofO = o.length();
+
+
+        StringBuilder sb = new StringBuilder(o);
+        sb.deleteCharAt(lenofO-1);
+        sb.append(',');
+        StringBuilder sb1 = new StringBuilder(i);
+        sb1.deleteCharAt(0);
+        sb.append(sb1);
+
+        String finalstr = sb.toString();
+        return finalstr;
+    }
+   /* public String jsonall(){
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        String sql = "SELECT secretkey  FROM users where username= 'sen'";
+        SQLiteStatement statement = MyDB.compileStatement(sql);
+        String res = statement.simpleQueryForString();
+JSONObject json = new JSONObject(res);
+json.get
+
+    }*/
+
 }
 
