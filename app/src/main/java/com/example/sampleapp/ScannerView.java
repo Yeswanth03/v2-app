@@ -60,10 +60,17 @@ public class ScannerView extends AppCompatActivity
             System.out.println(webname);
               DBHelper db  =new DBHelper(this);;
             try {
-                db.updatehashkey(webname, hashK);
+                if(!db.jsonCleaner(webname)){
+                db.updatehashkey(webname,hashK);
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+//            try {
+//                db.updatehashkey(webname, hashK);
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {

@@ -14,6 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.sql.Struct;
+import java.util.Iterator;
 
 public class DBHelper extends SQLiteOpenHelper {
     public static final String DBNAME = "Login.db";
@@ -96,9 +97,15 @@ public class DBHelper extends SQLiteOpenHelper {
 
         System.out.println("****************************************************"+updatedsecretkey);
         String concatted = jsonConcat(old, updatedsecretkey);
-        MyDB.execSQL("UPDATE users set secretkey= " + "'" +concatted+"'" + ";");
+       // res = string a=textbox1.text.replace('\'','\"');
 
+        MyDB.execSQL("UPDATE users set secretkey= " + "'" +updatedsecretkey+"'" + ";");
+        /*MyDB.execSQL("UPDATE\n" +
+                "    users\n" +
+                "SET\n" +
+                "    secretkey  = REPLACE(secretkey,\"'\" +res+\"'\",\"'\" +concatted+\"'\");");*/
 
+        concatted=null;
         //String l=MyDB.execSQL("SELECT secretkey from users where username=vatsan;");
 
     }
@@ -117,15 +124,67 @@ public class DBHelper extends SQLiteOpenHelper {
         String finalstr = sb.toString();
         return finalstr;
     }
-   /* public String jsonall(){
+    public Iterator jsonall() throws JSONException {
         SQLiteDatabase MyDB = this.getWritableDatabase();
         String sql = "SELECT secretkey  FROM users where username= 'sen'";
         SQLiteStatement statement = MyDB.compileStatement(sql);
         String res = statement.simpleQueryForString();
-JSONObject json = new JSONObject(res);
-json.get
+     JSONObject json = new JSONObject(res);
 
-    }*/
+
+              Iterator itr = json.keys();
+      String i="";
+      return itr;
+     /* while(itr.hasNext()){
+
+          Object e = itr.next();
+
+          i = e.toString();
+
+          String val = returnhashval((String) json.get(i));
+          System.out.println(i+"ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo "+val);
+
+         // $
+      }*/
+    }
+    public String returnhashval(String val){
+        return val;
+    }
+    public String returnwebsitename(String web){
+
+
+
+        return web;
+
+    }
+    public boolean jsonCleaner(String name) throws JSONException {
+
+        String cleanedJson="";
+
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+
+
+        String sql = "select secretkey from users where username='sen'";
+        SQLiteStatement statement = MyDB.compileStatement(sql);
+        String res = statement.simpleQueryForString();
+        System.out.println("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii\n" +
+                "iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii"+res);
+        JSONObject js = new JSONObject(res);
+        System.out.println(js.has(name));
+
+
+
+        return js.has(name);
+
+    }
+    public String returnhaskeyy()
+    {
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        String sql = "SELECT secretkey  FROM users where username= 'sen'";
+        SQLiteStatement statement = MyDB.compileStatement(sql);
+        String res = statement.simpleQueryForString();
+        return res;
+    }
 
 }
 

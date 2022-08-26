@@ -1,11 +1,16 @@
 package com.example.sampleapp;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteStatement;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,19 +20,41 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-public class ListActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.Iterator;
+
+/* class returnnamekeys extends SQLiteOpenHelper
+{
+    public returnnamekeys(Context context) {
+        super(context, "Login.db", null, 1);
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase sqLiteDatabase) {
+
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+
+    }
+}
+*/
+public class ListActivity extends AppCompatActivity{
 
     ArrayList<ContactModel> arrcontacts = new ArrayList<>();
     RecyclerContactAdapter adapter;
     FloatingActionButton btnOpenDialog;
-//    Button newscan;
+    //    Button newscan;
     RecyclerView recyclerView;
     String name=" ";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
@@ -61,12 +88,34 @@ public class ListActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view)
                     {
-                       // String name = "";
+                         String name = "";
 
                         if(!edtname.getText().toString().equals("")){
                             name = edtname.getText().toString();
-                            arrcontacts.add(new ContactModel(R.drawable.ic_launcher_foreground,name));
-                            DBHelper db;
+                            DBHelper db  =new DBHelper(getApplicationContext());
+                           try {
+                               Iterator itr = db.jsonall();
+                               String res = db.returnhaskeyy();
+                               JSONObject json = new JSONObject(res);
+                               //return res;
+
+                               while(itr.hasNext()){
+
+                                   Object e = itr.next();
+
+                                    String i = e.toString();
+                                   String val = (String) json.get(i);
+                                    arrcontacts.add(new ContactModel(R.drawable.ic_launcher_foreground,i,val));
+
+                                   System.out.println(i+"ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo "+val);
+
+                                   // $
+                               }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            //arrcontacts.add(new ContactModel(R.drawable.ic_launcher_foreground,name));
+
 
 
                         } else {

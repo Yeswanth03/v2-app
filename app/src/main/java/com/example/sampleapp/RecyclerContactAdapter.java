@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.CountDownTimer;
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,9 +22,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.apache.commons.codec.binary.Base32;
 import org.apache.commons.codec.binary.Hex;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.Iterator;
 
 import de.taimos.totp.TOTP;
 
@@ -104,6 +107,9 @@ public class RecyclerContactAdapter extends RecyclerView.Adapter<RecyclerContact
                 Dialog dialog = new Dialog(context);
                 dialog.setContentView(R.layout.displaytotp);
 
+//                EditText edtname = dialog.findViewById(R.id.edtname);
+//                edtname.setText(arrContacts.get(position).val);
+
                 ImageView img_1;
                 ImageView img_2;
                 ImageView img_3;
@@ -122,8 +128,22 @@ public class RecyclerContactAdapter extends RecyclerView.Adapter<RecyclerContact
 //                Random random = new Random();
 //                int n = random.nextInt(1000000-100000)+1;
 
-                String secretKey="KA54QGQSZZVBUFIH3XACOAW2VNFKXXVV";
+                String secretKey="";
+                String accname= arrContacts.get(position).name;
+                DBHelper db  =new DBHelper(context.getApplicationContext());
+                //String j = db.returnhaskeyy();
+                try {
+                Iterator itr = db.jsonall();
+                String res = db.returnhaskeyy();
+                JSONObject json = null;
+                json = new JSONObject(res);
 
+                //return res;
+                     secretKey = (String) json.get(accname);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                System.out.println(secretKey);
                 String s = getTOTPCode(secretKey);
 
 

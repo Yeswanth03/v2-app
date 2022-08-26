@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+
 public class LoginActivity extends AppCompatActivity
 {
     EditText inUsername,logPassword;
@@ -19,6 +21,14 @@ public class LoginActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        //System.out.println("heloooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
+        DBHelper MYDB;
+        MYDB =new DBHelper(this);
+        try {
+            MYDB.jsonall();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
