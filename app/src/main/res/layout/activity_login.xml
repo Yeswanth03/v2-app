@@ -121,21 +121,21 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnGoogle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:background="@drawable/btn_bg"
-        android:drawableLeft="@drawable/ic_google"
-        android:paddingLeft="40dp"
-        android:paddingTop="10dp"
-        android:paddingRight="40dp"
-        android:paddingBottom="10dp"
-        android:text="Google"
-        app:layout_constraintEnd_toEndOf="@+id/btnLogin"
-        app:layout_constraintStart_toStartOf="@+id/btnLogin"
-        app:layout_constraintTop_toBottomOf="@+id/donthaveaccount" />
+<!--    <Button-->
+<!--        android:id="@+id/btnGoogle"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="48dp"-->
+<!--        android:background="@drawable/btn_bg"-->
+<!--        android:drawableLeft="@drawable/ic_google"-->
+<!--        android:paddingLeft="40dp"-->
+<!--        android:paddingTop="10dp"-->
+<!--        android:paddingRight="40dp"-->
+<!--        android:paddingBottom="10dp"-->
+<!--        android:text="Google"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/btnLogin"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/btnLogin"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/donthaveaccount" />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

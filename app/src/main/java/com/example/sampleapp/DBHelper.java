@@ -30,7 +30,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase MyDB)
     {
         MyDB.execSQL("create Table users(userid integer  primary key autoincrement,username TEXT unique, password TEXT,email TEXT,secretkey text)");
-        MyDB.execSQL("UPDATE users set secretkey= '{"+"a"+":"+"a"+"}' ;");
+       // MyDB.execSQL("UPDATE users set secretkey= '{"+"a"+":"+"a"+"}' ;");
 
     }
 
@@ -77,7 +77,7 @@ public class DBHelper extends SQLiteOpenHelper {
     {
         SQLiteDatabase MyDB = this.getWritableDatabase();
        // MyDB.execSQL("UPDATE users set secretkey= '{"+"a"+":"+"a"+"}' ;");
-        //
+       // MyDB.execSQL("UPDATE users set secretkey= '{"+"a"+":"+"a"+"}' ;");
         String sql = "SELECT secretkey  FROM users where username= 'sen'";
         SQLiteStatement statement = MyDB.compileStatement(sql);
         String res = statement.simpleQueryForString();
@@ -185,6 +185,18 @@ public class DBHelper extends SQLiteOpenHelper {
         String res = statement.simpleQueryForString();
         return res;
     }
+    public void replace(String f)
+    {
 
+        //String f="kjsdfkjsdnflsjdnflsdjfnlsdfsdlfjnlsdj";
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        // MyDB.execSQL("UPDATE users set secretkey= '{"+"a"+":"+"a"+"}' ;");
+        //
+        String sql = "SELECT secretkey  FROM users where username= 'sen'";
+        SQLiteStatement statement = MyDB.compileStatement(sql);
+        String res = statement.simpleQueryForString();
+        //MyDB.execSQL("UPDATE users set secretkey= '{"+"a"+":"+"a"+"}' ;");
+        //MyDB.execSQL("UPDATE users set secretkey='"+ f +"';");
+    }
 }
 

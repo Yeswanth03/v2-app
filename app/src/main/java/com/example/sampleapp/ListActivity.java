@@ -61,7 +61,22 @@ public class ListActivity extends AppCompatActivity{
         RecyclerView recyclerView = findViewById(R.id.recyclerContact);
         btnOpenDialog = findViewById(R.id.btnOpenDialog);
 
+      //  Button testbtn=findViewById(R.id.testbtn);
 
+      /*  testbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                DBHelper DB;
+                DB=new DBHelper(getApplicationContext());
+                String l="{\"+\"a\"+\":\"+\"a\"+\"}";
+                DB.replace(l);
+
+
+
+            }
+        });
+*/
         btnOpenDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
