@@ -47,7 +47,7 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="AppName"
+        android:text="TOTP"
         android:textColor="@color/amber_50"
         android:textSize="34sp"
         app:layout_constraintBottom_toTopOf="@+id/btnlog"
